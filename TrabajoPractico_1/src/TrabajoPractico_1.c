@@ -21,11 +21,11 @@ int main(void) {
 	int resultadoResta;
 	int resultadoMultiplicacion;
 	float resultadoDivision;
-	int banderaDivisorCero = 0;
-	int factorialPrimerOperando;
-	int factorialSegundoOperando;
+	long int factorialPrimerOperando;
+	long int factorialSegundoOperando;
 	int banderaCalculoEcho = 0;
 	int opcion;
+	int retornoDivision;
 
 
 	do
@@ -59,7 +59,7 @@ int main(void) {
 					suma(primerOperando,segundoOperando,&resultadoSuma);
 					resta(primerOperando,segundoOperando,&resultadoResta);
 					multiplicacion(primerOperando,segundoOperando,&resultadoMultiplicacion);
-					division(primerOperando,segundoOperando,&banderaDivisorCero,&resultadoDivision);
+					retornoDivision =division(primerOperando,segundoOperando,&resultadoDivision);
 					factorial(primerOperando,&factorialPrimerOperando);
 					factorial(segundoOperando,&factorialSegundoOperando);
 
@@ -76,7 +76,7 @@ int main(void) {
 					printf("El resultado de la suma es (A + B): %d\n",resultadoSuma);
 					printf("El resultado de la resta es (A - B): %d\n",resultadoResta);
 					printf("El resultado de la multiplicacion es (A * B): %d\n",resultadoMultiplicacion);
-					if(banderaDivisorCero)
+					if(retornoDivision)
 					{
 						printf("No se puede dividir por cero");
 					}
@@ -84,13 +84,12 @@ int main(void) {
 					{
 						printf("El resultado de la division es (A / B): %.2f\n",resultadoDivision);
 					}
-					printf("El resultado del factorial de A es: %d\n",factorialPrimerOperando);
-					printf("El resultado del factorial de B es: %d\n",factorialSegundoOperando);
+					printf("El resultado del factorial de A es: %ld\n",factorialPrimerOperando);
+					printf("El resultado del factorial de B es: %ld\n",factorialSegundoOperando);
 					system("pause");
 
 					banderaPrimerOperando = 0;
 					banderaSegundoOperando = 0;
-					banderaDivisorCero = 0;
 					banderaCalculoEcho = 0;
 				}
 				else

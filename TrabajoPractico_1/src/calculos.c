@@ -1,51 +1,100 @@
 int suma(int numero1,int numero2,int* resultado)
 {
-	*resultado = numero1 + numero2;
-	return 0;
+	int retorno = 0;
+
+	if(numero1|| numero2)
+	{
+		*resultado = numero1 + numero2;
+	}
+	else
+	{
+		retorno = 1;
+	}
+
+	return retorno;
 }
 
 
 
 int resta(int numero1,int numero2,int* resultado)
 {
-	*resultado = numero1 - numero2;
-	return 0 ;
+	int retorno = 0;
+
+	if(numero1 || numero2)
+	{
+		*resultado = numero1 - numero2;
+	}
+	else
+	{
+		retorno = 1;
+	}
+
+	return retorno;
 }
 
 
 
 int multiplicacion(int numero1,int numero2,int* resultado)
 {
-	*resultado = numero1 * numero2;
-	return 0;
+	int retorno = 0;
+
+	if(numero1 || numero2)
+	{
+		*resultado = numero1 * numero2;
+	}
+	else
+	{
+		retorno = 1;
+	}
+
+	return retorno;
 }
 
 
 
-int division (int numero1,int numero2,int *bandera,float* resultado)
+int division (int numero1,int numero2,float* resultado)
 {
-	if(numero2)
+	int retorno = 0;
+
+	if(numero1 && numero2)
 	{
 		*resultado = (float)numero1 / numero2;
 	}
 	else
 	{
-		*bandera = 1;
+		retorno = 1;
 	}
-	return 0;
+	return retorno;
 }
 
 
 
-int factorial(int numero,int* resultado)
+int factorial(int numero,long int* resultado)
 {
-	int acumulador = 1;
 
-	for(int i = numero; i > 0; i--)
+	long int acumulador = 1;
+	int retorno = 0;
+
+	if (numero)
 	{
-		acumulador *= i;
+		if(numero <13)
+		{
+			for(int i = numero; i > 0; i--)
+			{
+				acumulador *= i;
+			}
+			*resultado = acumulador;
+		}
+		else
+		{
+			return 1;
+		}
+
+	}
+	else
+	{
+		retorno = -1;
 	}
 
-	*resultado = acumulador;
-	return 0;
+	return retorno;
 }

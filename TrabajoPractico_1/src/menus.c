@@ -23,8 +23,8 @@ int menuCuatroOpciones(int* opcion,int A,int B,int banderaA,int banderaB)
 	printf("\n3. Calcular todas las operaciones");
 	printf("\n4. Informar resultados");
 	printf("\n5. Salir\n");
-	fflush(stdin);
 	scanf("%d",opcion);
+	fflush(stdin);
 
 	return 0;
 }
