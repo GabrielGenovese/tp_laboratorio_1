@@ -3,6 +3,8 @@
 
 int menuCuatroOpciones(int* opcion,int A,int B,int banderaA,int banderaB)
 {
+	*opcion = 0;
+
 	if(banderaA == 0)
 	{
 		printf("\n1. Ingresar primer operando (A = X)");
@@ -23,6 +25,7 @@ int menuCuatroOpciones(int* opcion,int A,int B,int banderaA,int banderaB)
 	printf("\n3. Calcular todas las operaciones");
 	printf("\n4. Informar resultados");
 	printf("\n5. Salir\n");
+	fflush(stdin);
 	scanf("%d",opcion);
 	fflush(stdin);
 

@@ -5,9 +5,9 @@
 /* brief obtiene 2 parametros por valor, los suma y devuelve el resultado por referencia siempre y
  * cuando aunquesea uno de los dos parametros sea diferente de 0.
  *
- * param1 primer numero a sumar
- * param2 segundo numero a sumar
- * param3 resultado pasado por referencia
+ * param1 primer numero a sumar.
+ * param2 segundo numero a sumar.
+ * param3 resultado pasado por referencia.
  *
  * return retorna 0 si funciono correctamente, y retorna 1 si se pasaron  dos ceros por parametros.
  * */
@@ -60,7 +60,7 @@ int division (int numero1,int numero2,float* resultado);
  * param2 resultado del factorial pasado por referencia.
  *
  * return retorna 0 si funciono correctamente, retorna 1 si el numero pasado por parametro  supera el
- * numero maximo al que el programa puede hacerle factorial y -1 si se pasa por parametro un 0.
+ * numero maximo al que el programa puede hacerle factorial y -1 si se pasa por parametro un 0 o un numero negativo.
  * */
 int factorial(int numero,long int* resultado);
 

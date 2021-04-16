@@ -25,7 +25,13 @@ int main(void) {
 	long int factorialSegundoOperando;
 	int banderaCalculoEcho = 0;
 	int opcion;
+	int retornoSuma;
+	int retornoResta;
+	int retornoMultiplicacion;
 	int retornoDivision;
+	int retornoFactorialA;
+	int retornoFactorialB;
+
 
 
 	do
@@ -56,36 +62,100 @@ int main(void) {
 			case 3:
 				if(banderaPrimerOperando && banderaSegundoOperando)
 				{
-					suma(primerOperando,segundoOperando,&resultadoSuma);
-					resta(primerOperando,segundoOperando,&resultadoResta);
-					multiplicacion(primerOperando,segundoOperando,&resultadoMultiplicacion);
-					retornoDivision =division(primerOperando,segundoOperando,&resultadoDivision);
-					factorial(primerOperando,&factorialPrimerOperando);
-					factorial(segundoOperando,&factorialSegundoOperando);
+					retornoSuma = suma(primerOperando,segundoOperando,&resultadoSuma);
+					retornoResta = resta(primerOperando,segundoOperando,&resultadoResta);
+					retornoMultiplicacion= multiplicacion(primerOperando,segundoOperando,&resultadoMultiplicacion);
+					retornoDivision = division(primerOperando,segundoOperando,&resultadoDivision);
+					retornoFactorialA = factorial(primerOperando,&factorialPrimerOperando);
+					retornoFactorialB = factorial(segundoOperando,&factorialSegundoOperando);
 
 					banderaCalculoEcho = 1;
 				}
 				else
 				{
-					printf("ERROR,Falta ingresar uno de los números (o ambos)");
+					printf("ERROR,Falta ingresar uno de los números (o ambos)\n");
 				}
 				break;
 			case 4:
 				if(banderaCalculoEcho)
 				{
-					printf("El resultado de la suma es (A + B): %d\n",resultadoSuma);
-					printf("El resultado de la resta es (A - B): %d\n",resultadoResta);
-					printf("El resultado de la multiplicacion es (A * B): %d\n",resultadoMultiplicacion);
+					if(!retornoSuma)
+					{
+						printf("El resultado de la suma es (A + B): %d\n",resultadoSuma);
+					}
+					else
+					{
+						printf("No hay resultado de suma porque no habia nada que Sumar\n");
+					}
+
+
+					if(!retornoResta)
+					{
+						printf("El resultado de la resta es (A - B): %d\n",resultadoResta);
+					}
+					else
+					{
+						printf("No hay resultado de resta porque no habia nada que restar\n");
+					}
+
+
+					if(!retornoMultiplicacion)
+					{
+						printf("El resultado de la multiplicacion es (A * B): %d\n",resultadoMultiplicacion);
+					}
+					else
+					{
+						printf("No hay resultado de multiplicacion porque no habia nada que multiplicar\n");
+					}
+
+
 					if(retornoDivision)
 					{
-						printf("No se puede dividir por cero");
+						printf("No se puede dividir por cero\n");
 					}
 					else
 					{
 						printf("El resultado de la division es (A / B): %.2f\n",resultadoDivision);
 					}
-					printf("El resultado del factorial de A es: %ld\n",factorialPrimerOperando);
-					printf("El resultado del factorial de B es: %ld\n",factorialSegundoOperando);
+
+
+					if(!retornoFactorialA)
+					{
+						printf("El resultado del factorial de A es: %ld\n",factorialPrimerOperando);
+					}
+					else
+					{
+						if(retornoFactorialA == -1){
+							printf("No se puede hacer el factorial de 0 o de un numero negativo\n");
+						}
+						else
+						{
+							if(retornoFactorialA == 1)
+							{
+								printf("Disculpe, Esta operacion No soporta un numero mayor a 12\n");
+							}
+						}
+					}
+
+
+					if(!retornoFactorialB)
+					{
+						printf("El resultado del factorial de B es: %ld\n",factorialSegundoOperando);
+					}
+					else
+					{
+						if(retornoFactorialB == -1){
+							printf("No se puede hacer el factorial de 0 o de un numero negativo\n");
+						}
+						else
+						{
+							if(retornoFactorialB == 1)
+							{
+								printf("Disculpe, Esta operacion No soporta un numero mayor a 12\n");
+							}
+						}
+					}
+
 					system("pause");
 
 					banderaPrimerOperando = 0;
