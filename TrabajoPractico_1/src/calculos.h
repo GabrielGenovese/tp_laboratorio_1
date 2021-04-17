@@ -60,7 +60,7 @@ int division (int numero1,int numero2,float* resultado);
  * param2 resultado del factorial pasado por referencia.
  *
  * return retorna 0 si funciono correctamente, retorna 1 si el numero pasado por parametro  supera el
- * numero maximo al que el programa puede hacerle factorial y -1 si se pasa por parametro un 0 o un numero negativo.
+ * numero maximo al que el programa puede hacerle factorial y -1 si se pasa por parametro un numero negativo.
  * */
 int factorial(int numero,long int* resultado);
 

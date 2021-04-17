@@ -1,9 +1,3 @@
-/*
- * menus.h
- *
- *  Created on: 11 abr. 2021
- *      Author: gabri
- */
 
 #ifndef MENUS_H_
 #define MENUS_H_

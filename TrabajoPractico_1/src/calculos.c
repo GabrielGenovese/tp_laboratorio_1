@@ -75,7 +75,7 @@ int factorial(int numero,long int* resultado)
 	long int acumulador = 1;
 	int retorno = 0;
 
-	if (numero && numero > 0)
+	if (numero > -1)
 	{
 		if(numero <13)
 		{
