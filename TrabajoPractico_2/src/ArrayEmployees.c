@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "validaciones_UTN.h"
+#include "ArrayEmployees.h"
 
-int inicializacionEstructura(eEmployees employees[], int size)
+
+int initEmployees(eEmployees employees[], int size)
 {
 	int retorno = -1;
 
@@ -37,6 +40,7 @@ int buscarLibre(eEmployees employees[], int size, int* index)
 	return retorno;
 }
 
+
 int ingresoDatos(int* id,char nombre[],char apellido[], float* sueldo, int* sector)
 {
 	int retorno = -1;
@@ -53,6 +57,7 @@ int ingresoDatos(int* id,char nombre[],char apellido[], float* sueldo, int* sect
 	}
 	return retorno;
 }
+
 
 int addEmployee(eEmployees list[], int size, int freeIndex, int id, char nombre[], char apellido[], float sueldo, int sector)
 {
@@ -77,7 +82,6 @@ int addEmployee(eEmployees list[], int size, int freeIndex, int id, char nombre[
 int findEmployeeById(eEmployees list[],int size, int id)
 {
 	int retorno = -1;
-	int legajo;
 
 	if(list != NULL && size > 0 && id > -1)
 	{
@@ -105,6 +109,204 @@ int removeEmployee(eEmployees list[],int size, int index)
 			list[index].isEmpty = 1;
 			retorno = 0;
 		}
+	}
+
+	return retorno;
+}
+
+
+int upwardOrdering(eEmployees list[], int size)
+{
+	int retorno = -1;
+	eEmployees auxiliar;
+
+	if(list != NULL && size > 0)
+	{
+		for(int i = 0; i < size -1; i++)
+		{
+			for(int j = i +1; j < size; j++)
+			{
+				if(strcmp(list[i].lastname,list[j].lastname) > 0)
+				{
+					auxiliar = list[i];
+					list[i] = list[j];
+					list[j] = auxiliar;
+					retorno = 0;
+				}
+				else
+				{
+					if(strcmp(list[i].lastname,list[j].lastname) == 0)
+					{
+						if(list[i].sector > list[j].sector )
+						{
+							auxiliar = list[i];
+							list[i] = list[j];
+							list[j] = auxiliar;
+							retorno = 0;
+						}
+					}
+				}
+			}
+		}
+	}
+	return retorno;
+}
+
+
+int descendingOrdering(eEmployees list[],int size)
+{
+	int retorno = -1;
+	eEmployees auxiliar;
+
+	if(list != NULL && size > 0)
+	{
+		for(int i = 0; i < size -1; i++)
+		{
+			for(int j = i +1; j < size; j++)
+			{
+				if(strcmp(list[i].lastname,list[j].lastname) < 0)
+				{
+					auxiliar = list[i];
+					list[i] = list[j];
+					list[j] = auxiliar;
+				}
+				else
+				{
+					if(strcmp(list[i].lastname,list[j].lastname) == 0)
+					{
+						if(list[i].sector < list[j].sector )
+						{
+							auxiliar = list[i];
+							list[i] = list[j];
+							list[j] = auxiliar;
+						}
+					}
+				}
+			}
+		}
+	}
+	return retorno;
+}
+
+
+int sortEmployees(eEmployees list[],int size, int order)
+{
+	int retorno = -1;
+
+	if(list != NULL && size > 0 && (order != 1 || order != 0))
+	{
+		if(order)
+		{
+			upwardOrdering(list,size);
+		}
+		else
+		{
+			descendingOrdering(list,size);
+		}
+
+		retorno =0;
+	}
+	return retorno;
+}
+
+
+int headLine()
+{
+	int retorno = -1;
+
+	printf("\n%10s","ID |");
+	printf("%20s","Nombre |");
+	printf("%20s","Apellido |");
+	printf("%10s","Sueldo |");
+	printf("%10s","Sector |\n");
+
+	retorno = 0;
+
+	return retorno;
+}
+
+
+int listOne(eEmployees list[], int index)
+{
+	int retorno = -1;
+	if(list != NULL && index > -1)
+	{
+
+		printf("\n%10d |",list[index].id);
+		printf("%20s |",list[index].name);
+		printf("%20s |",list[index].lastname);
+		printf("%10.2f |",list[index].salary);
+		printf("%10d |\n",list[index].sector);
+		retorno = 0;
+	}
+	return retorno;
+}
+
+
+int listAll(eEmployees list[], int size)
+{
+	int retorno = -1;
+
+	if(list != NULL && size > 0)
+	{
+		headLine();
+		for(int i = 0; i < size ; i++)
+		{
+			if(list[i].isEmpty == 0)
+			{
+				listOne(list,i);
+			}
+		}
+		retorno = 0;
+	}
+
+	return retorno;
+}
+
+int uponAverageSalary(eEmployees list[], int size, int averageSalary)
+{
+	int retorno = -1;
+	int accountant = 0;
+
+	if(list != NULL && size > 0 && averageSalary > 0)
+	{
+		for(int i = 0; i < size; i++)
+		{
+			if(!list[i].isEmpty && list[i].salary > averageSalary)
+			{
+				accountant++;
+			}
+		}
+		printf("Hay %d empleado/s que superan el salario promedio\n",accountant);
+		retorno = 0;
+	}
+
+	return retorno;
+}
+
+
+int totalAndAverageSalary(eEmployees list[],int size)
+{
+	int retorno = -1;
+	float totalSalary = 0;
+	float averageSalary = 0;
+	float employeesAmount = 0;
+
+	if(list != NULL && size > 0)
+	{
+		for(int i = 0; i < size; i++)
+		{
+			if(!list[i].isEmpty)
+			{
+				totalSalary += list[i].salary;
+				employeesAmount++;
+			}
+		}
+		retorno = 0;
+		averageSalary = totalSalary / employeesAmount;
+		printf("El Total de los salarios de los empleados es: %.2f\n",totalSalary);
+		printf("Y el salario promedio es de: %.2f\n",averageSalary);
+		uponAverageSalary(list,size,averageSalary);
 	}
 
 	return retorno;

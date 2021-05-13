@@ -41,4 +41,19 @@ int menuModificar(int* opcElegida, char mensaje[])
 }
 
 
+int menuInformar(int* opcElegida, char mensaje[])
+{
+	int retorno = -1;
 
+	if(opcElegida != NULL && mensaje != NULL)
+	{
+		printf("\n1. Listado de los Empleados ordenados Alfabeticamente por apellido y sector\n");
+		printf("2. Total y promedio de los salarios, y cuantos empleados superan el salario promedio\n");
+		printf("3. Salir\n");
+		validacionNumeroEntero(opcElegida,mensaje);
+
+		retorno = 0;
+	}
+
+	return retorno;
+}

@@ -33,7 +33,7 @@ int validacionCaracter(char* caracter, char mensaje[]);
  * param2 mensaje con el cual se pide la entrada de datos especifica.
  * return retorna 0 si no hubo errores y -1 si no pudo validad.
  * */
-int validacionString20C(char string[], char mensaje[]);
+int validacionString51C(char string[], char mensaje[]);
 
 
 /*brief valida que lo ingresado sea un caracter igual a alguna de las opciones.
