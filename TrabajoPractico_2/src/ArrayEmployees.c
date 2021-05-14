@@ -21,7 +21,7 @@ int initEmployees(eEmployees employees[], int size)
 }
 
 
-int buscarLibre(eEmployees employees[], int size, int* index)
+int searchFree(eEmployees employees[], int size, int* index)
 {
 	int retorno = -1;
 
@@ -41,16 +41,16 @@ int buscarLibre(eEmployees employees[], int size, int* index)
 }
 
 
-int ingresoDatos(int* id,char nombre[],char apellido[], float* sueldo, int* sector)
+int dataEntry(int* id,char name[],char lastName[], float* salary, int* sector)
 {
 	int retorno = -1;
 
-	if(id != NULL && nombre != NULL && apellido != NULL && sueldo != NULL && sector != NULL)
+	if(id != NULL && name != NULL && lastName != NULL && salary != NULL && sector != NULL)
 	{
 		validacionNumeroEntero(id,"Ingrese el ID del empleado: ");
-		validacionString51C(nombre,"Ingrese el nombre del empleado: ");
-		validacionString51C(apellido,"Ingrese el apellido del empleado: ");
-		validacionNumeroFloatConMinMax(sueldo,0,1000000,"Ingrese el sueldo del empleado: ");
+		validacionString51C(name,"Ingrese el nombre del empleado: ");
+		validacionString51C(lastName,"Ingrese el apellido del empleado: ");
+		validacionNumeroFloatConMinMax(salary,0,1000000,"Ingrese el sueldo del empleado: ");
 		validacionNumeroEntero(sector, "Ingrese el sector del empleado: ");
 
 		retorno = 0;
@@ -59,16 +59,16 @@ int ingresoDatos(int* id,char nombre[],char apellido[], float* sueldo, int* sect
 }
 
 
-int addEmployee(eEmployees list[], int size, int freeIndex, int id, char nombre[], char apellido[], float sueldo, int sector)
+int addEmployee(eEmployees list[], int size, int freeIndex, int id, char name[], char lastName[], float salary, int sector)
 {
 	int retorno = -1;
 
-	if(list != NULL && size > 0 && freeIndex > -1 && freeIndex < 1001 && id > -1 && nombre != NULL && apellido != NULL && sueldo > 0 && sector >-1)
+	if(list != NULL && size > 0 && freeIndex > -1 && freeIndex < 1001 && id > -1 && name != NULL && lastName != NULL && salary > 0 && sector >-1)
 	{
 		list[freeIndex].id = id;
-		strcpy(list[freeIndex].name,nombre);
-		strcpy(list[freeIndex].lastname,apellido);
-		list[freeIndex].salary = sueldo;
+		strcpy(list[freeIndex].name,name);
+		strcpy(list[freeIndex].lastname,lastName);
+		list[freeIndex].salary = salary;
 		list[freeIndex].sector = sector;
 
 		list[freeIndex].isEmpty = 0;
@@ -210,19 +210,13 @@ int sortEmployees(eEmployees list[],int size, int order)
 }
 
 
-int headLine()
+void headLine()
 {
-	int retorno = -1;
-
 	printf("\n%10s","ID |");
 	printf("%20s","Nombre |");
 	printf("%20s","Apellido |");
 	printf("%10s","Sueldo |");
 	printf("%10s","Sector |\n");
-
-	retorno = 0;
-
-	return retorno;
 }
 
 

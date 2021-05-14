@@ -14,15 +14,15 @@ int main(void) {
 	eEmployees employeesList[MAX_EMPLOYEES];
 	int freeSlot;
 	int opcionSecundaria;
-	int indice;
-	int banderaIngresado = 0;
+	int index;
+	int flagEmployeeEntry = 0;
 
 	int id;
-	char nombre[LENNAME];
-	char apellido[LENNAME];
-	float sueldo;
+	char name[LENNAME];
+	char lastName[LENNAME];
+	float salary;
 	int sector;
-	int ordenamiento;
+	int ordering;
 
 	initEmployees(employeesList,MAX_EMPLOYEES);
 
@@ -33,11 +33,11 @@ int main(void) {
 		switch(opcionPrincipal)
 		{
 		case 1:
-			if(!buscarLibre(employeesList,MAX_EMPLOYEES,&freeSlot))
+			if(!searchFree(employeesList,MAX_EMPLOYEES,&freeSlot))
 			{
-				ingresoDatos(&id,nombre,apellido,&sueldo,&sector);
-				addEmployee(employeesList,MAX_EMPLOYEES,freeSlot,id,nombre,apellido,sueldo,sector);
-				banderaIngresado = 1;
+				dataEntry(&id,name,lastName,&salary,&sector);
+				addEmployee(employeesList,MAX_EMPLOYEES,freeSlot,id,name,lastName,salary,sector);
+				flagEmployeeEntry = 1;
 			}
 			else
 			{
@@ -45,11 +45,11 @@ int main(void) {
 			}
 			break;
 		case 2:
-			if(banderaIngresado == 1)
+			if(flagEmployeeEntry == 1)
 			{
 				validacionNumeroEntero(&id,"Ingrese el ID del empleado a modificar: ");
-				indice = findEmployeeById(employeesList,MAX_EMPLOYEES,id);
-				if(indice != -1 )
+				index = findEmployeeById(employeesList,MAX_EMPLOYEES,id);
+				if(index != -1 )
 				{
 					do
 					{
@@ -57,16 +57,16 @@ int main(void) {
 						switch(opcionSecundaria)
 						{
 						case 1:
-							validacionString51C(employeesList[indice].name,"Ingrese el nuevo nombre: ");
+							validacionString51C(employeesList[index].name,"Ingrese el nuevo nombre: ");
 							break;
 						case 2:
-							validacionString51C(employeesList[indice].lastname,"Ingrese el nuevo apellido: ");
+							validacionString51C(employeesList[index].lastname,"Ingrese el nuevo apellido: ");
 							break;
 						case 3:
-							validacionNumeroFloatConMinMax(&employeesList[indice].salary,0,1000000,"Ingrese el nuevo sueldo: ");
+							validacionNumeroFloatConMinMax(&employeesList[index].salary,0,1000000,"Ingrese el nuevo sueldo: ");
 							break;
 						case 4:
-							validacionNumeroEntero(&employeesList[indice].sector, "Ingrese el nuevo sector: ");
+							validacionNumeroEntero(&employeesList[index].sector, "Ingrese el nuevo sector: ");
 							break;
 						case 5:
 							break;
@@ -88,13 +88,13 @@ int main(void) {
 
 			break;
 		case 3:
-			if (banderaIngresado == 1)
+			if (flagEmployeeEntry == 1)
 			{
 				validacionNumeroEntero(&id,"Ingrese el ID del empleado a eliminar: ");
-				indice = findEmployeeById(employeesList,MAX_EMPLOYEES,id);
-				if(indice != -1 )
+				index = findEmployeeById(employeesList,MAX_EMPLOYEES,id);
+				if(index != -1 )
 				{
-					removeEmployee(employeesList,MAX_EMPLOYEES,indice);
+					removeEmployee(employeesList,MAX_EMPLOYEES,index);
 				}
 				else
 				{
@@ -107,7 +107,7 @@ int main(void) {
 			}
 			break;
 		case 4:
-			if(banderaIngresado == 1)
+			if(flagEmployeeEntry == 1)
 			{
 				do
 				{
@@ -115,8 +115,8 @@ int main(void) {
 					switch(opcionSecundaria)
 					{
 					case 1:
-						validacionNumeroEnteroConMinMax(&ordenamiento,0,1,"Ingrese 1 para que se Ordene de manera ascendente o 0 para que se ordene de manera descendente: ");
-						sortEmployees(employeesList,MAX_EMPLOYEES,ordenamiento);
+						validacionNumeroEnteroConMinMax(&ordering,0,1,"Ingrese 1 para que se Ordene de manera ascendente o 0 para que se ordene de manera descendente: ");
+						sortEmployees(employeesList,MAX_EMPLOYEES,ordering);
 						listAll(employeesList,MAX_EMPLOYEES);
 						break;
 					case 2:
