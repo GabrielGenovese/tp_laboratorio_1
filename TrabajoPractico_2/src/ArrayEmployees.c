@@ -212,11 +212,11 @@ int sortEmployees(eEmployees list[],int size, int order)
 
 void headLine()
 {
-	printf("\n%10s","ID |");
-	printf("%20s","Nombre |");
-	printf("%20s","Apellido |");
-	printf("%10s","Sueldo |");
-	printf("%10s","Sector |\n");
+	printf("\n%10s |","ID ");
+	printf("%20s |","Nombre ");
+	printf("%20s |","Apellido ");
+	printf("%10s |","Sueldo ");
+	printf("%10s |\n","Sector ");
 }
 
 
@@ -226,7 +226,7 @@ int listOne(eEmployees list[], int index)
 	if(list != NULL && index > -1)
 	{
 
-		printf("\n%10d |",list[index].id);
+		printf("%10d |",list[index].id);
 		printf("%20s |",list[index].name);
 		printf("%20s |",list[index].lastname);
 		printf("%10.2f |",list[index].salary);
