@@ -168,16 +168,24 @@ int employee_dataRequest(char *nombre, char *horasTrabajadas, char *sueldo)
 	return retorno;
 }
 
+void printHeader()
+{
+	printf("%10s|","ID");
+	printf("%30s|","nombre");
+	printf("%20s|","Horas Trabajadas");
+	printf("%15s|\n","sueldo");
+}
+
 int printEmployee(Employee *empleado)
 {
 	int retorno = 1;
 
 	if(empleado != NULL)
 	{
-		printf("%d \t",(*(empleado)).id);
-		printf("%s \t",(*empleado).nombre);
-		printf("%d \t",(*empleado).horasTrabajadas);
-		printf("%d \n",(*empleado).sueldo);
+		printf("%10d|",(*empleado).id);
+		printf("%30s|",(*empleado).nombre);
+		printf("%20d|",(*empleado).horasTrabajadas);
+		printf("%15d|\n",(*empleado).sueldo);
 		retorno = 0;
 	}
 

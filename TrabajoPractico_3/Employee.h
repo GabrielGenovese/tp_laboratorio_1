@@ -30,4 +30,6 @@ int printEmployee(Employee *empleado);
 
 Employee* searchEmployeeByID(Employee *employee, int id);
 
+void printHeader();
+
 #endif // employee_H_INCLUDED
