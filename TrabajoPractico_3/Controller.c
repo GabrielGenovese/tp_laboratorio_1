@@ -14,7 +14,6 @@
  * \param path char*
  * \param pArrayListEmployee LinkedList*
  * \return int
- *
  */
 int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 {
@@ -54,7 +53,7 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
  * \return int
  *
  */
-int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
+int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)//COMPLETAR
 {
     int retorno = -1;
     FILE* pFile;
@@ -83,6 +82,7 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
     return retorno;
 }
 
+
 /** \brief Alta de empleados
  *
  * \param path char*
@@ -106,7 +106,7 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 	{
 		if(!ll_isEmpty(pArrayListEmployee))
 		{
-			index = (*pArrayListEmployee).size - 1;
+			index = ll_len(pArrayListEmployee) - 1;
 			lastEmployee = ll_get(pArrayListEmployee,index);
 			employee_getId(lastEmployee,&lastEmployeeId);
 			itoa(lastEmployeeId+1,id,10);
@@ -133,6 +133,7 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 
 	return retorno;
 }
+
 
 /** \brief Modificar datos de empleado
  *
@@ -276,6 +277,7 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
     return retorno;
 }
 
+
 /** \brief Listar empleados
  *
  * \param path char*
@@ -312,6 +314,7 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
     return retorno;
 }
 
+
 /** \brief Ordenar empleados
  *
  * \param path char*
@@ -321,8 +324,105 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+	int retorno = -1;
+	int res;
+	int opcion;
+	int upDown;
+
+	if(pArrayListEmployee!= NULL)
+	{
+		if(!ll_isEmpty(pArrayListEmployee))
+		{
+
+			do
+			{
+			menuOrdenar(&opcion,"Opcion: ");
+			if(opcion < 5 && opcion > 0)
+			{
+				do{
+					menuAscendenteDescendente(&upDown,"Opcion: ");
+					switch(upDown)
+					{
+					case 1:
+						upDown = 1;
+						break;
+					case 2:
+						upDown = 0;
+						break;
+					default:
+						upDown = -1;
+						printf("\nOpcion Invalida\n");
+						break;
+					}
+				}while(upDown == -1);
+			}
+			printf("upDown: %d",upDown);
+			switch(opcion)
+			{
+			case 1:
+				res = ll_sort(pArrayListEmployee,sortByID,upDown); // 1 ascendente /-1 descendente
+				if (!res)
+				{
+					printf("\nLista Ordenada Correctamente por ID.\n");
+				}
+				else
+				{
+					printf("\nError al ordenar\n");
+				}
+				break;
+			case 2:
+				res = ll_sort(pArrayListEmployee,sortByNombre,upDown); // 1 ascendente /-1 descendente
+				if (!res)
+				{
+					printf("\nLista Ordenada Correctamente por Nombre.\n");
+				}
+				else
+				{
+					printf("\nError al ordenar\n");
+				}
+				break;
+			case 3:
+				res = ll_sort(pArrayListEmployee,sortByHorasTrabajadas,upDown); // 1 ascendente /-1 descendente
+				if (!res)
+				{
+					printf("\nLista Ordenada Correctamente por Horas Trabajadas.\n");
+				}
+				else
+				{
+					printf("\nError al ordenar\n");
+				}
+				break;
+			case 4:
+				res = ll_sort(pArrayListEmployee,sortBySueldo,upDown); // 1 ascendente /-1 descendente
+				if (!res)
+				{
+					printf("\nLista Ordenada Correctamente por Sueldo.\n");
+				}
+				else
+				{
+					printf("\nError al ordenar\n");
+				}
+				break;
+			case 5:
+				break;
+			default:
+				printf("\nOpcion Invalida\n");
+				opcion = 0;
+				break;
+			}
+			}while(!opcion);
+
+
+		}
+		else
+		{
+			printf("No hay empleados que Ordenar.");
+		}
+	}
+
+	return retorno;
 }
+
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
  *
@@ -335,6 +435,7 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 {
     return 1;
 }
+
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo binario).
  *

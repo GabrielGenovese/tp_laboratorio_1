@@ -32,4 +32,9 @@ Employee* searchEmployeeByID(Employee *employee, int id);
 
 void printHeader();
 
+int sortByID(void* employee1,void* employee2);
+int sortBySueldo(void* employee1,void* employee2);
+int sortByHorasTrabajadas(void* employee1,void* employee2);
+int sortByNombre(void* employee1,void* employee2);
+
 #endif // employee_H_INCLUDED

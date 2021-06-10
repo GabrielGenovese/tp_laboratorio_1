@@ -179,13 +179,22 @@ void printHeader()
 int printEmployee(Employee *empleado)
 {
 	int retorno = 1;
+	int id;
+	char nombre[128];
+	int horasTrabajadas;
+	int sueldo;
 
 	if(empleado != NULL)
 	{
-		printf("%10d|",(*empleado).id);
-		printf("%30s|",(*empleado).nombre);
-		printf("%20d|",(*empleado).horasTrabajadas);
-		printf("%15d|\n",(*empleado).sueldo);
+		employee_getId(empleado,&id);
+		employee_getNombre(empleado,nombre);
+		employee_getHorasTrabajadas(empleado,&horasTrabajadas);
+		employee_getSueldo(empleado,&sueldo);
+
+		printf("%10d|",id);
+		printf("%30s|",nombre);
+		printf("%20d|",horasTrabajadas);
+		printf("%15d|\n",sueldo);
 		retorno = 0;
 	}
 
@@ -196,12 +205,138 @@ int printEmployee(Employee *empleado)
 Employee* searchEmployeeByID(Employee *employee, int id)
 {
 	Employee* retorno = NULL;
+	int EmpleadoActual;
 	if(employee != NULL)
 	{
-		if((*employee).id == id)
+		employee_getId(employee,&EmpleadoActual);
+		if(EmpleadoActual == id)
 		{
 			retorno = employee;
 		}
 	}
+	return retorno;
+}
+
+
+int sortByID(void* employee1,void* employee2)
+{
+	int retorno = 0;
+	Employee * empl1 = NULL;
+	Employee * empl2 = NULL;
+	int idEmp1;
+	int idEmp2;
+
+
+
+	if(employee1 != NULL && employee2 != NULL )
+	{
+		empl1 = employee1;
+		empl2 = employee2;
+
+		employee_getId(empl1,&idEmp1);
+		employee_getId(empl2,&idEmp2);
+		if(idEmp1 > idEmp2)
+		{
+			retorno = 1;
+		}
+		else
+		{
+			if(idEmp1 < idEmp2)
+			{
+				retorno = -1;
+			}
+		}
+	}
+
+	return retorno;
+}
+
+
+int sortBySueldo(void* employee1,void* employee2)
+{
+	int retorno = 0;
+	int sueldoEmp1;
+	int sueldoEmp2;
+	Employee* empl1;
+	Employee* empl2;
+
+	if(employee1 != NULL && employee2 != NULL )
+	{
+		empl1 = employee1;
+		empl2 = employee2;
+
+		employee_getSueldo(empl1,&sueldoEmp1);
+		employee_getSueldo(empl2,&sueldoEmp2);
+
+		if(sueldoEmp1 > sueldoEmp2)
+		{
+			retorno = 1;
+		}
+		else
+		{
+			if(sueldoEmp1 < sueldoEmp2)
+			{
+				retorno = -1;
+			}
+		}
+	}
+
+	return retorno;
+}
+
+
+int sortByHorasTrabajadas(void* employee1,void* employee2)
+{
+	int retorno = 0;
+	int horasEmp1;
+	int horasEmp2;
+	Employee* empl1;
+	Employee* empl2;
+
+	if(employee1 != NULL && employee2 != NULL )
+	{
+		empl1 = employee1;
+		empl2 = employee2;
+
+		employee_getHorasTrabajadas(empl1,&horasEmp1);
+		employee_getHorasTrabajadas(empl2,&horasEmp2);
+
+		if(horasEmp1 > horasEmp2)
+		{
+			retorno = 1;
+		}
+		else
+		{
+			if(horasEmp1 < horasEmp2)
+			{
+				retorno = -1;
+			}
+		}
+	}
+
+	return retorno;
+}
+
+
+int sortByNombre(void* employee1,void* employee2)
+{
+	int retorno = 0;
+	char nombreEmp1[128];
+	char nombreEmp2[128];
+	Employee* empl1;
+	Employee* empl2;
+
+	if(employee1 != NULL && employee2 != NULL )
+	{
+
+		empl1 = employee1;
+		empl2 = employee2;
+
+		employee_getNombre(empl1,nombreEmp1);
+		employee_getNombre(empl2,nombreEmp2);
+
+		retorno = strcmp(nombreEmp1,nombreEmp2);
+	}
+
 	return retorno;
 }

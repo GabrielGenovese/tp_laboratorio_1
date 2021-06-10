@@ -5,4 +5,8 @@ int menu(int* opcElegida, char mensaje[]);
 
 int menuModificar(int* opcElegida, char mensaje[]);
 
+int menuOrdenar(int* opcElegida, char mensaje[]);
+
+int menuAscendenteDescendente(int* opcElegida, char mensaje[]);
+
 #endif /* MENUS_H_ */
