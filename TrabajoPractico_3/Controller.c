@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "LinkedList.h"
+#include "Controller.h"
 #include "Employee.h"
 #include "parser.h"
 #include "menus.h"
@@ -19,29 +20,51 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 {
     int retorno = -1;
     FILE* pFile;
+    int opcionesListaUsada;
 
     if(path != NULL && pArrayListEmployee != NULL)
     {
-    	pFile = fopen(path,"r");
-    	if(pFile != NULL)
+    	if(ll_isEmpty(pArrayListEmployee))
     	{
-    		if(!parser_EmployeeFromBinary(pFile,pArrayListEmployee))
-    		{
-    			printf("LOS DATOS SE CARGARON CORRECTAMENTE");
-    			retorno = 0;
-    		}
-    		else
-    		{
-    			printf("No se pudieron cargar los datos");
-    		}
-    		fclose(pFile);
-    	}
+			pFile = fopen(path,"r");
+			if(pFile != NULL)
+			{
+				if(!parser_EmployeeFromText(pFile,pArrayListEmployee))
+				{
+					printf("LOS DATOS SE CARGARON CORRECTAMENTE");
+					retorno = 0;
+				}
+				else
+				{
+					printf("No se pudieron cargar los datos");
+				}
+				fclose(pFile);
+			}
+			else
+			{
+				printf("No se pudo abrir el archivo.");
+			}
+		}
     	else
     	{
-    		printf("No se pudo abrir el archivo.");
+    		menuListaUsada(&opcionesListaUsada,"Opcion: ");
+    		switch(opcionesListaUsada)
+    		{
+    		case 1:
+    			ll_clear(pArrayListEmployee);
+    			break;
+    		case 2:
+    			controller_saveAsBinary("backup.bin",pArrayListEmployee);
+    			ll_clear(pArrayListEmployee);
+    			break;
+    		case 3:
+    			break;
+    		default:
+    			printf("opcion Invalida");
+    		}
     	}
-
     }
+
     return retorno;
 }
 
@@ -66,6 +89,7 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)//COMP
     		if(!parser_EmployeeFromBinary(pFile,pArrayListEmployee))
     		{
     			retorno = 0;
+    			printf("LOS DATOS SE CARGARON CORRECTAMENTE");
     		}
     		else
 			{
@@ -433,7 +457,52 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+	int retorno = -1;
+	FILE* pFile;
+	int id;
+	int horasTrabajadas;
+	int sueldo;
+	char nombre[128];
+	Employee * actualEmployee;
+
+	if(path != NULL && pArrayListEmployee != NULL)
+	{
+		if(!ll_isEmpty(pArrayListEmployee))
+		{
+			pFile = fopen(path,"w");
+
+			if(pFile != NULL)
+			{
+				fprintf(pFile,"ID,Nombre,HorasTrabajadas,Sueldo\n");
+
+				for(int i = 0; i < ll_len(pArrayListEmployee); i++)
+				{
+					actualEmployee = ll_get(pArrayListEmployee,i);
+					if(actualEmployee != NULL)
+					{
+						employee_getId(actualEmployee,&id);
+						employee_getNombre(actualEmployee,nombre);
+						employee_getHorasTrabajadas(actualEmployee,&horasTrabajadas);
+						employee_getSueldo(actualEmployee,&sueldo);
+
+						fprintf(pFile,"%d,%s,%d,%d\n",id,nombre,horasTrabajadas,sueldo);
+					}
+				}
+				printf("Se guardaron los datos exitosamente en %s",path);
+				fclose(pFile);
+			}
+			else
+			{
+				printf("No se pudo abrir %s",path);
+			}
+		}
+		else
+		{
+			printf("No hay nada que imprimir");
+		}
+	}
+
+    return retorno;
 }
 
 
@@ -446,7 +515,50 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+	int retorno = -1;
+	FILE* pFile;
+	Employee * actualEmployee;
+	int cantidadEscrita;
+	int flagbreak = 0;
+
+	if(path != NULL && pArrayListEmployee != NULL)
+	{
+		if(!ll_isEmpty(pArrayListEmployee))
+		{
+			pFile = fopen(path,"wb");
+
+			if(pFile != NULL)
+			{
+				for(int i = 0; i < ll_len(pArrayListEmployee); i++)
+				{
+					actualEmployee = ll_get(pArrayListEmployee,i);
+					if(actualEmployee != NULL)
+					{
+						cantidadEscrita = fwrite(actualEmployee,sizeof(Employee),1,pFile);
+						if(cantidadEscrita < 1)
+						{
+							printf("Error al guardar en %s",path);
+							flagbreak = 1;
+							break;
+						}
+					}
+				}
+				if(!flagbreak)
+				{
+					printf("Se guardaron los datos exitosamente en %s",path);
+				}
+				fclose(pFile);
+			}
+			else
+			{
+				printf("No se pudo abrir %s",path);
+			}
+		}
+		else
+		{
+			printf("No hay nada que imprimir");
+		}
+	}
+
+	return retorno;
 }
-
-

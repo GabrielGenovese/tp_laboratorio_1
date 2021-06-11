@@ -36,7 +36,6 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 				printf("No Se han podido leer todos los Datos del Archivo");
 				break;
 			}
-
 		}
 
 
@@ -55,28 +54,38 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 {
 	int retorno = -1;
-	char buffer[4][128];
 	int dataReadedAmount;
 	Employee* readedEmployee;
+	int ultimaLinea = 0;
+
+
 
 	if(pFile != NULL && pArrayListEmployee != NULL)
 	{
-		fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n", buffer[0], buffer[1], buffer[2], buffer[3]);
 
 		while(!feof(pFile))
 		{
-			dataReadedAmount = fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n", buffer[0], buffer[1], buffer[2], buffer[3]);
+			readedEmployee = employee_new();
+			if(readedEmployee != NULL)
+			{
+				dataReadedAmount = fread(readedEmployee,sizeof(Employee),1,pFile);
 
-			if(dataReadedAmount == 4)
-			{
-				readedEmployee = employee_newParametros(buffer[0],buffer[1],buffer[2],buffer[3]);
-				ll_add(pArrayListEmployee,readedEmployee);
-				retorno = 0;
-			}
-			else
-			{
-				printf("No Se han podido leer todos los Datos del Archivo");
-				break;
+				if(dataReadedAmount == 1)
+				{
+					ll_add(pArrayListEmployee,readedEmployee);
+					retorno = 0;
+				}
+				else
+				{
+					ultimaLinea++;
+					if(ultimaLinea > 1)
+					{
+						printf("No Se han podido leer todos los Datos del Archivo");
+						retorno = -1;
+						break;
+					}
+
+				}
 			}
 
 		}
