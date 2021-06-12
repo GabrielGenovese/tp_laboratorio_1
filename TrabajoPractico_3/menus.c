@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include "validaciones_UTN.h"
 
+
+/*brief menu principal del programa, devuelve la respuesta del usuario por referencia
+ * param1 opcElegida int*
+ * param2 mensaje char*
+ * return retorna 0 si no hubo problemas y -1 si hubo algun error.
+ * */
 int menu(int* opcElegida, char mensaje[])
 {
 	int retorno = -1;
@@ -27,6 +33,11 @@ int menu(int* opcElegida, char mensaje[])
 }
 
 
+/*brief menu para configurar un empleado, devuelve la respuesta del usuario por referencia
+ * param1 opcElegida int*
+ * param2 mensaje char*
+ * return retorna 0 si no hubo problemas y -1 si hubo algun error.
+ * */
 int menuModificar(int* opcElegida, char mensaje[])
 {
 	int retorno = -1;
@@ -67,6 +78,12 @@ int menuOrdenar(int* opcElegida, char mensaje[])
 	return retorno;
 }
 
+
+/*brief menu para decidir ordenamiento ascendente o descendente, devuelve la respuesta del usuario por referencia
+ * param1 opcElegida int*
+ * param2 mensaje char*
+ * return retorna 0 si no hubo problemas y -1 si hubo algun error.
+ * */
 int menuAscendenteDescendente(int* opcElegida, char mensaje[])
 {
 	int retorno = -1;
@@ -83,6 +100,13 @@ int menuAscendenteDescendente(int* opcElegida, char mensaje[])
 	return retorno;
 }
 
+
+
+/*brief menu para decidir como proceder ante una lista usada, devuelve la respuesta del usuario por referencia
+ * param1 opcElegida int*
+ * param2 mensaje char*
+ * return retorna 0 si no hubo problemas y -1 si hubo algun error.
+ * */
 int menuListaUsada(int* opcElegida, char mensaje[])
 {
 	int retorno = -1;

@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include "validaciones_UTN.h"
 
+
+
 int employee_setId(Employee* this,int id)
 {
 	int retorno = -1;
@@ -202,7 +204,7 @@ int printEmployee(Employee *empleado)
 }
 
 
-Employee* searchEmployeeByID(Employee *employee, int id)
+Employee* compareEmployeeByID(Employee *employee, int id)
 {
 	Employee* retorno = NULL;
 	int EmpleadoActual;

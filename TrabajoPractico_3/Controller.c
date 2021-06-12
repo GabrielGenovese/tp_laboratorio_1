@@ -48,20 +48,23 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
     	else
     	{
     		menuListaUsada(&opcionesListaUsada,"Opcion: ");
-    		switch(opcionesListaUsada)
-    		{
-    		case 1:
-    			ll_clear(pArrayListEmployee);
-    			break;
-    		case 2:
-    			controller_saveAsBinary("backup.bin",pArrayListEmployee);
-    			ll_clear(pArrayListEmployee);
-    			break;
-    		case 3:
-    			break;
-    		default:
-    			printf("opcion Invalida");
-    		}
+    		do{
+				switch(opcionesListaUsada)
+				{
+				case 1:
+					ll_clear(pArrayListEmployee);
+					break;
+				case 2:
+					controller_saveAsBinary("backup.bin",pArrayListEmployee);
+					ll_clear(pArrayListEmployee);
+					break;
+				case 3:
+					break;
+				default:
+					printf("opcion Invalida");
+					break;
+				}
+    		}while(opcionesListaUsada > 3 || opcionesListaUsada < 1);
     	}
     }
 
@@ -80,27 +83,53 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)//COMP
 {
     int retorno = -1;
     FILE* pFile;
+    int opcionesListaUsada;
 
     if(path != NULL && pArrayListEmployee != NULL)
     {
-    	pFile = fopen(path,"rb");
-    	if(pFile != NULL)
+    	if(ll_isEmpty(pArrayListEmployee))
     	{
-    		if(!parser_EmployeeFromBinary(pFile,pArrayListEmployee))
-    		{
-    			retorno = 0;
-    			printf("LOS DATOS SE CARGARON CORRECTAMENTE");
-    		}
-    		else
+			pFile = fopen(path,"rb");
+			if(pFile != NULL)
 			{
-				printf("No se pudieron cargar los datos");
+				if(!parser_EmployeeFromBinary(pFile,pArrayListEmployee))
+				{
+					retorno = 0;
+					printf("LOS DATOS SE CARGARON CORRECTAMENTE");
+				}
+				else
+				{
+					printf("No se pudieron cargar los datos");
+				}
+				fclose(pFile);
 			}
-    		fclose(pFile);
+			else
+			{
+				printf("No se pudo abrir el archivo.");
+			}
     	}
     	else
     	{
-    		printf("No se pudo abrir el archivo.");
+    		menuListaUsada(&opcionesListaUsada,"Opcion: ");
+				do{
+					switch(opcionesListaUsada)
+					{
+					case 1:
+						ll_clear(pArrayListEmployee);
+						break;
+					case 2:
+						controller_saveAsBinary("backup.bin",pArrayListEmployee);
+						ll_clear(pArrayListEmployee);
+						break;
+					case 3:
+						break;
+					default:
+						printf("opcion Invalida");
+						break;
+					}
+				}while(opcionesListaUsada > 3 || opcionesListaUsada < 1);
     	}
+
 
     }
     return retorno;
@@ -187,9 +216,9 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
     		for(int i = 0; i < lenList; i++)
     		{
     			employee = ll_get(pArrayListEmployee,i);
-    			if(searchEmployeeByID(employee,id) != NULL)
+    			if(compareEmployeeByID(employee,id) != NULL)
     			{
-    				employeeToModify = searchEmployeeByID(employee,id);
+    				employeeToModify = compareEmployeeByID(employee,id);
     				break;
     			}
     		}
@@ -264,9 +293,9 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 			for(int i = 0; i < lenList; i++)
 			{
 				employee = ll_get(pArrayListEmployee,i);
-				if(searchEmployeeByID(employee,id) != NULL)
+				if(compareEmployeeByID(employee,id) != NULL)
 				{
-					employeeToRemove = searchEmployeeByID(employee,id);
+					employeeToRemove = compareEmployeeByID(employee,id);
 					index = i;
 					break;
 				}
