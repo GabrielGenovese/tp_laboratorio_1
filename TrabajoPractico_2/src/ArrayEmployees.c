@@ -41,15 +41,14 @@ int searchFree(eEmployees employees[], int size, int* index)
 }
 
 
-int dataEntry(int* id,char name[],char lastName[], float* salary, int* sector)
+int dataEntry(char name[],char lastName[], float* salary, int* sector)
 {
 	int retorno = -1;
 
-	if(id != NULL && name != NULL && lastName != NULL && salary != NULL && sector != NULL)
+	if(name != NULL && lastName != NULL && salary != NULL && sector != NULL)
 	{
-		validacionNumeroEntero(id,"Ingrese el ID del empleado: ");
-		validacionString51C(name,"Ingrese el nombre del empleado: ");
-		validacionString51C(lastName,"Ingrese el apellido del empleado: ");
+		validacionStringAlpha(name,"Ingrese el nombre del empleado: ",LENNAME,"Nombre Incorrecto");
+		validacionStringAlpha(lastName,"Ingrese el apellido del empleado: ",LENNAME,"Apellido Incorrecto");
 		validacionNumeroFloatConMinMax(salary,0,1000000,"Ingrese el sueldo del empleado: ");
 		validacionNumeroEntero(sector, "Ingrese el sector del empleado: ");
 
@@ -59,19 +58,20 @@ int dataEntry(int* id,char name[],char lastName[], float* salary, int* sector)
 }
 
 
-int addEmployee(eEmployees list[], int size, int freeIndex, int id, char name[], char lastName[], float salary, int sector)
+int addEmployee(eEmployees list[], int size, int freeIndex, int* id, char name[], char lastName[], float salary, int sector)
 {
 	int retorno = -1;
 
-	if(list != NULL && size > 0 && freeIndex > -1 && freeIndex < 1001 && id > -1 && name != NULL && lastName != NULL && salary > 0 && sector >-1)
+	if(list != NULL && size > 0 && freeIndex > -1 && freeIndex < 1001 && id != NULL && name != NULL && lastName != NULL && salary > 0 && sector >-1)
 	{
-		list[freeIndex].id = id;
+		list[freeIndex].id = *id;
 		strcpy(list[freeIndex].name,name);
 		strcpy(list[freeIndex].lastname,lastName);
 		list[freeIndex].salary = salary;
 		list[freeIndex].sector = sector;
 
 		list[freeIndex].isEmpty = 0;
+		(*id)++;
 		retorno = 0;
 	}
 

@@ -32,14 +32,13 @@ int searchFree(eEmployees employees[], int size, int* index);
 
 
 /*\brief Make the validation of data entry, All parameters go for reference.
- * \param1 int* id.
- * \param2 char name[].
- * \param3 char lastName[].
- * \param4 float* salary.
- * \param5 int* Sector.
+ * \param1 char name[].
+ * \param2 char lastName[].
+ * \param3 float* salary.
+ * \param4 int* Sector.
  * \return int Return (-1) if Error - (0) if Ok.
  * */
-int dataEntry(int* id,char name[],char lastName[], float* salary, int* sector);
+int dataEntry(char name[],char lastName[], float* salary, int* sector);
 
 
 /** \brief add in a existing list of employees the values received as parameters
@@ -54,7 +53,7 @@ int dataEntry(int* id,char name[],char lastName[], float* salary, int* sector);
 * \param8 sector int
 * \return int Return (-1) if Error [Invalid length or NULL pointer or withoutfree space] - (0) if Ok
 */
-int addEmployee(eEmployees list[], int size, int freeIndex, int id, char name[], char lastName[], float salary, int sector);
+int addEmployee(eEmployees list[], int size, int freeIndex, int *id, char name[], char lastName[], float salary, int sector);
 
 
 /** \brief find an Employee by Id en returns the index position in array.
