@@ -149,7 +149,6 @@ int validacionStringAlpha(char string[], char mensaje[],int cantidadArray, char 
 					if(!isalpha(auxiliar[i]) || auxiliar[i] == ' ')
 					{
 						contadorNumeros++;
-						printf("%d",isalpha(auxiliar[i]));
 					}
 				}
 				if(contadorNumeros)

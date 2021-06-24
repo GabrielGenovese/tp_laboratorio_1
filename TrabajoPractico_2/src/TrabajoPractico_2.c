@@ -16,7 +16,7 @@ int main(void) {
 	int freeSlot;
 	int opcionSecundaria;
 	int index;
-	int flagEmployeeEntry = 1;
+	int flagEmployeeEntry = 0;
 
 	int id = 1;
 	char name[LENNAME];
